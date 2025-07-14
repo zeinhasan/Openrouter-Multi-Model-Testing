@@ -1,2 +1,2 @@
-# Openrouter-Multi-Model-Testing
-Testing Multi Model LLM from Openrouter using Streamllit
+# Kimi-K2-Streamlit
+Kimi K2 Streamlit
