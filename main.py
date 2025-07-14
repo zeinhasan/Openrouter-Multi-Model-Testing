@@ -42,7 +42,7 @@ if "chat_log" not in st.session_state:
     st.session_state.chat_log = []
 if "model_params" not in st.session_state:
     st.session_state.model_params = {
-        name: {"temperature": 0.7, "top_p": 1.0, "top_k": 50}
+        name: {"temperature": 0.7, "top_p": 1.0}
         for name in model_list
     }
 if "uploaded_files" not in st.session_state:
@@ -58,14 +58,10 @@ for name in model_list:
         top_p = st.slider(f"📊 Top-p ({name})", 0.1, 1.0,
                           st.session_state.model_params[name]["top_p"], 0.05,
                           key=f"{name}_top_p")
-        top_k = st.slider(f"🔢 Top-k ({name})", 1, 100,
-                          st.session_state.model_params[name]["top_k"], 1,
-                          key=f"{name}_top_k")
         st.caption("Temperature = kreativitas, Top-p/k = sampling filter.")
         st.session_state.model_params[name] = {
             "temperature": temp,
             "top_p": top_p,
-            "top_k": top_k,
         }
 
 # --- Upload File (Dokumen) ---
@@ -74,6 +70,7 @@ st.title("🤖 Multi-Model Chatbot Studio")
 st.subheader("📎 Chat with Document (Max 5 files)")
 if st.button("🔁 Reset Dokumen"):
     st.session_state.uploaded_files = []
+    st.rerun()  # forces widget to clear
 
 uploaded_files = st.file_uploader(
     "Upload file (.txt, .md, .pdf, .docx)", type=["txt", "md", "pdf", "docx"],
